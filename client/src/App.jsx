@@ -1,15 +1,34 @@
+import React from "react";
 import Navbar from "./components/Navbar";
+import Hero from "./components/HeroFull";
+import Cc from "./components/Cc";
+import PPAAdvantage from "./components/PPAAdvantage";
+import Testimonials from "./components/Testimonials";
+import Pricing from "./components/Pricing";
+import LearningOutcomes from "./components/LearningOutcomes";
+import WhoIsThisFor from "./components/WhoIsThisFor";
+import Mentor from "./components/Mentor";
+import FAQ from "./components/FAQ";
+import Footer from "./components/Footer";
 
-function App() {
+
+const App = () => {
   return (
     <>
       <Navbar />
-      <div className="pt-24 px-4">
-        <h1 className="text-4xl font-bold text-center">Welcome to Programming Pathshala</h1>
-        <p className="text-center mt-4 text-gray-600">Build your backend and frontend skills here.</p>
-      </div>
+      <Hero />
+      <Cc />
+      <PPAAdvantage />
+      <LearningOutcomes />
+      <WhoIsThisFor />
+      <Mentor />
+      <Testimonials />
+      <Pricing />
+      <FAQ />
+      <Footer />
     </>
   );
-}
+};
 
 export default App;
+
