@@ -1,45 +1,61 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const HeroLeft = () => {
+  const [course, setCourse] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchCourseData = async () => {
+      try {
+        // CORRECTED: Use port 5000 and the /api/curriculum endpoint
+        const response = await fetch('http://localhost:5000/api/curriculum');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setCourse(data);
+      } catch (e) {
+        setError(e.message);
+        console.error("Failed to fetch course data:", e);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCourseData();
+  }, []);
+
+  if (loading) {
+    return <div>Loading course details...</div>;
+  }
+
+  if (error) {
+    return <div className="text-red-500">Error: Could not load course data. Is the backend server running?</div>;
+  }
+
+  
   return (
-    <div className="w-full md:w-1/2 px-6 py-10 space-y-5">
-      {/* Tag */}
-      <div className="text-sm bg-gray-100 text-gray-700 px-3 py-1 rounded w-fit font-medium">
-        Recommended for Working Professionals
-      </div>
-
-      {/* Heading */}
-      <h1 className="text-3xl md:text-4xl font-bold text-blue-900 leading-tight">
-        Learn Backend Engineering in <br /> JAVA Spring Framework
+    <div className="flex-1 text-left">
+      <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
+        {/* CORRECTED: Use the courseTitle from our API */}
+        {course.courseTitle}
       </h1>
-
-      {/* Description */}
-      <p className="text-gray-700 text-base">
-        Be a Rockstar JAVA Backend Developer. Dive Deep into Spring MVC, Spring Security, Spring Data, JPA, Hibernate and many more frameworks. Explore Design Patterns and Concurrency Concepts. Ace Backend Developer Interviews.
+      {/* You would map over course.modules here instead of course.features */}
+      <p className="mt-4 text-gray-600">
+        This project will demonstrate your skills in web development, database integration, and security.
       </p>
-
-      {/* Bullet Points */}
-      <ul className="list-disc pl-5 text-gray-800 space-y-1">
-        <li>Hybrid Learning: Self paced videos and weekend classes</li>
-        <li>Learn by doing 3 industry-level projects</li>
-        <li>Crack interviews for backend developer roles</li>
-        <li>Shine your Resume with the most in-demand backend skills</li>
+      <ul className="mt-6 space-y-2 text-gray-700">
+        {course.modules.map((module) => (
+          <li key={module._id} className="flex items-start">
+            <span className="text-blue-500 mr-2 mt-1">●</span>
+            <span><b>{module.title}:</b> {module.topics.join(', ')}</span>
+          </li>
+        ))}
       </ul>
-
-      {/* Duration */}
-      <p className="text-sm font-semibold">
-        Estimated Duration: <span className="text-blue-700">3 months</span>
-      </p>
-
-      {/* CTA Button */}
-      <button className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-2 rounded font-medium transition">
+      <button className="mt-6 bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors">
         Start 7-Days Free Trial
       </button>
-
-      {/* Small Note */}
-      <p className="text-xs text-gray-500">
-        Watch 10+ lectures and solve problems for free
-      </p>
     </div>
   );
 };

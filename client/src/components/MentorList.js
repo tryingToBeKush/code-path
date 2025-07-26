@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Mentor = () => {
+const MentorList = () => {
   const [mentors, setMentors] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -22,12 +22,11 @@ const Mentor = () => {
     fetchMentors();
   }, []);
 
-  if (loading) return <p>Loading Mentors...</p>;
+  if (loading) return <p>Loading mentors...</p>;
 
   return (
     <div>
-      {/* This is just an example structure. Replace it with your actual JSX for mentors. */}
-      <h2>Meet Your Mentors</h2>
+      <h2>Mentors</h2>
       {mentors.map(mentor => (
         <div key={mentor._id}>
           <h3>{mentor.name}</h3>
@@ -38,4 +37,4 @@ const Mentor = () => {
   );
 };
 
-export default Mentor;
+export default MentorList;

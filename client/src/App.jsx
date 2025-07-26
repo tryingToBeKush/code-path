@@ -1,34 +1,42 @@
-import React from "react";
-import Navbar from "./components/Navbar";
-import Hero from "./components/HeroFull";
-import Cc from "./components/Cc";
-import PPAAdvantage from "./components/PPAAdvantage";
-import Testimonials from "./components/Testimonials";
-import Pricing from "./components/Pricing";
-import LearningOutcomes from "./components/LearningOutcomes";
-import WhoIsThisFor from "./components/WhoIsThisFor";
-import Mentor from "./components/Mentor";
-import FAQ from "./components/FAQ";
-import Footer from "./components/Footer";
 
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
 
-const App = () => {
+import Navbar from './components/Navbar.jsx';
+import HomePage from './pages/HomePage.jsx';
+import CoursesPage from './pages/CoursesPage.jsx';
+import SuccessStoriesPage from './pages/SuccessStoriesPage.jsx';
+import BlogsPage from './pages/BlogsPage.jsx';
+import EventsPage from './pages/EventsPage.jsx';
+import LoginPage from './pages/LoginPage.jsx';
+import SignupPage from './pages/SignupPage.jsx';
+import ProfilePage from './pages/ProfilePage.jsx';
+import HistoryPage from './pages/HistoryPage.jsx';
+import PricingPage from './pages/PricingPage.jsx';
+import NotFoundPage from './pages/NotFoundPage.jsx';
+
+function App() {
   return (
-    <>
+    <AuthProvider>
       <Navbar />
-      <Hero />
-      <Cc />
-      <PPAAdvantage />
-      <LearningOutcomes />
-      <WhoIsThisFor />
-      <Mentor />
-      <Testimonials />
-      <Pricing />
-      <FAQ />
-      <Footer />
-    </>
+      <main>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/courses" element={<CoursesPage />} />
+          <Route path="/success-stories" element={<SuccessStoriesPage />} />
+          <Route path="/blogs" element={<BlogsPage />} />
+          <Route path="/events" element={<EventsPage />} />
+          <Route path="/pricing" element={<PricingPage />} />
+          <Route path="/history" element={<HistoryPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </main>
+    </AuthProvider>
   );
-};
+}
 
 export default App;
-
